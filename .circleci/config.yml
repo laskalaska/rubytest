@@ -1,0 +1,22 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@0.1.2
+  
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.6-node-browsers
+    working_directory: ~/rubytest
+    steps:
+      - checkout
+      - run:
+          name: Run tests
+          command: |
+            gem install bundler
+            bundle install
+            bundle exec cucumber
+workflows:
+  version: 2
+  workflow:
+    jobs:
+    - build
